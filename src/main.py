@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pandas as pd
 from fastapi import FastAPI
-from DataModel import DataUpload
+from app.models.DataModel import DataUpload
 
 DATA_DIR = Path(__file__).parent / "data"
 
