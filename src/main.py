@@ -2,12 +2,18 @@ from pathlib import Path
 
 import pandas as pd
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 from src.models.DataModel import DataUpload
 
 DATA_DIR = Path(__file__).parent / "data"
 
 
 app = FastAPI()
+
+
+@app.get("/")
+async def read_root():
+    return RedirectResponse(url="/data")
 
 
 @app.get("/data")
@@ -44,7 +50,3 @@ async def add_data(body: DataUpload):
     data.to_csv(DATA_DIR / "data.csv", index=False)
 
     return {"message": f"Random number {body.random_number} added to the data!"}
-
-@app.get("/")
-async def read_root():
-    return RedirectResponse(url="/data")
